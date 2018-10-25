@@ -9,6 +9,9 @@ app.set('view engine', 'handlebars');
 
 app.set('port', process.env.PORT || 3001);
 
+app.get('/', function(req, res) {
+	res.render('home');
+});
 
 //404 page
 app.use(function(req, res){
