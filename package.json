@@ -1,0 +1,24 @@
+{
+  "name": "glhf",
+  "version": "1.0.0",
+  "description": "This is the GLHF Esports website demo page.",
+  "main": "glhf.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express3-handlebars": "^0.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pnucci324/GLHF.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pnucci324/GLHF/issues"
+  },
+  "homepage": "https://github.com/pnucci324/GLHF#readme"
+}
