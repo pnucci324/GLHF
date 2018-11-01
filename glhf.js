@@ -13,6 +13,10 @@ app.get('/', function(req, res) {
 	res.render('home');
 });
 
+app.get('/about',function(req, res){
+	res.render('about');
+});
+
 //404 page
 app.use(function(req, res){
 	res.type('text/plain');
