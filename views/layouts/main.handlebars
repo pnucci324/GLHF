@@ -1,23 +1,59 @@
 <!doctype html>
 <html>
 <head>
-<title>Good Luck Have Fun eSports</title>
+	<title>Good Luck Have Fun eSports</title>
+	<link rel="stylesheet" type="text/css" href="css/glhf.css" />
+	<script>
+		
+		function showLogin() {
+			var loginBox = document.getElementsByClassName('login')[0];
+			console.log(loginBox);
+			if (loginBox.style.display == "none" || loginBox.style.display == "") {
+				loginBox.style.display = "block";
+			} else {
+				loginBox.style.display = "none";
+			}
+		}
+		
+	</script>
 </head>
 <body>
-	{{{body}}}
 
-<!--nav bar-->
-<div class='nav'>
-	<a class='active' href='/about'>About</a>
-	<a href='/events'>Events</a>
-	<a href='/gallery'>Gallery</a>
-	<div class='login'>
-		<form>
-			<input type='text'>username</input>
-			<input type='password'>Password</input>
-		</form>
+<div class="view">
+	
+	<div class="header">
+		<h1>GLHF</h1>
 	</div>
 
-	<footer>GLHF -- Proudly bringing eSports to Pittsburgh since 2018.</footer>
+	<div class="nav">
+		<a class="menu" href="/about">About</a>
+		<a class="menu" href="/events">Events</a>
+		<a class="menu" href="/gallery">Gallery</a>
+
+	</div>
+	
+	<div class="content">
+		{{body}}
+	</div>
+	
+	<div class="footer">
+		<footer>GLHF -- Proudly bringing eSports to Pittsburgh since 2018.</footer>
+	</div>
+	
+	<div class="loginLink">
+		<h3><a onclick="showLogin()">Login</a></h3>
+	</div>
+	
+	<div class="login">
+		<form>
+			<input type="text">username</input>
+			<input type="password">Password</input>
+			<input type="submit" />
+		</form>
+	</div>
+	
+
+	
+</div>
 </body>
 </html>

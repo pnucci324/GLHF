@@ -13,10 +13,6 @@ app.get('/', function(req, res) {
 	res.render('home');
 });
 
-app.get('/about',function(req, res){
-	res.render('about');
-});
-
 // Static pages - Anything we need delivered literally.
 
 app.use(express.static(__dirname + '/public'));
