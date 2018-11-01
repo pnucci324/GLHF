@@ -10,7 +10,7 @@ div {
 	grid-template-columns: 100px 200px auto 100px;
 	grid-template-rows:  100px auto;
 	background-color: black;
-	background-image: url('glhf-dark.png');
+	background-image: url('/img/glhf-dark.png');
 	background-repeat: no-repeat;
 	background-position: center;
 }
