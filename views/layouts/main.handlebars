@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Good Luck Have Fun eSports</title>
-	<link rel="stylesheet" type="text/css" href="css/glhf.css" />
+	<link rel="stylesheet" type="text/css" href="css/glhf.css" />	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		
 		function showLogin() {
@@ -45,13 +46,39 @@
 	</div>
 	
 	<div class="login">
-		<form>
+		<form class="loginForm" role="form"
+				action="/process?form=login' method="POST">
 			<input type="text">username</input>
 			<input type="password">Password</input>
 			<input type="submit" />
 		</form>
 	</div>
-	
+	<script>
+		$(document).ready(function(){
+			$('.loginForm').on('submit', function(evt){
+				evt.preventDefault();
+				var action = $(this).attr('action');
+				var $container = $(this).closest('.formContainer');
+				$.ajax({
+					url: action,
+					type: 'POST',
+					data: $(this).serialize(),
+					success: function(){
+					alert('Success')
+					if(alert.success){
+                                                $container.html('<h2>Thank you!</h2>' + data.message);                                                                                          
+                                        }else{
+                                                $container.html('There was a Problem.');
+                                        }
+                                },
+                        error: function(){
+                                alart('There was a problem');
+                                }
+                        });
+                });
+        });
+
+	</script>
 
 	
 </div>

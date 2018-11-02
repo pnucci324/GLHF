@@ -21,6 +21,11 @@ app.get('/about',function(req, res){
 
 app.use(express.static(__dirname + '/public'));
 
+app.post('/process', function(req, res){
+	if(req.xhr || req.accepts('json,html')==='json'){
+		res.send({ success: true });
+	}
+});
 //404 page
 app.use(function(req, res){
 	res.type('text/plain');
