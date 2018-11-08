@@ -33,11 +33,11 @@ app.use(function(req, res){
 	res.send('404 - Not Found');
 });
 
-//505 page
+//500 page
 app.use(function(err, req, res, next){
 	console.error(err.stack);
 	res.type('text/plain');
-	res.status(505);
+	res.status(500);
 	res.send('500 - Server Error');
 });
 
