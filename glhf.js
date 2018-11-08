@@ -17,6 +17,27 @@ app.get('/about',function(req, res){
 	res.render('about');
 });
 
+app.get('/events',function(req,res){
+	res.render('events',{
+		events:{
+			name: 'Good Luck Have Fun  Events',
+			abbrev: 'GLHF',
+},
+		names:[
+			{name: 'NHL event', date: 'Nov 15' },
+			{name: 'Pioneer Ambassador Game Night', date: 'Nov 27' },
+			{name: 'Mario Kart Tournmanet', date: 'Nov 30' },
+],
+specialsUrl: '/november-events',
+dates:[ '15', '27', '30' ],
+});
+
+});
+
+app.get('/gallery',function(req,res){
+	res.render('gallery');
+
+});
 // Static pages - Anything we need delivered literally.
 
 app.use(express.static(__dirname + '/public'));
