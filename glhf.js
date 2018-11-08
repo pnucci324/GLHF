@@ -17,6 +17,14 @@ app.get('/about',function(req, res){
 	res.render('about');
 });
 
+app.get('/events', function(req, res) {
+	res.render('events');
+}
+
+app.get('/gallery', function(req, res) {
+	res.render('gallery');
+}
+
 app.get('/events',function(req,res){
 	res.render('events',{
 		events:{
@@ -38,6 +46,7 @@ app.get('/gallery',function(req,res){
 	res.render('gallery');
 
 });
+
 // Static pages - Anything we need delivered literally.
 
 app.use(express.static(__dirname + '/public'));
