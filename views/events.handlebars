@@ -1,0 +1,28 @@
+<p> GLHF Events</p><br>
+
+<ul>
+		{{#each names}}
+			{{! I'm in a new block..and the context has changed }}
+		<li>
+			{{name - {{date}}
+			{{if../events}}
+				({{../..//events.abrev}})
+			{{/if}}
+		</li>
+	{{/each}}
+</ul>
+{{#unless dates}}
+	<p>all dates in {{events.name}}
+{{/unless dates}}
+{{#if specialsUrl}}
+	{{! I'm in a new block, but the context hasn't changed (sortof) }}
+	<p>Check out our <a href="{{specialsUrl}}"> dates!</p>
+	<p>please check back often for dates.</p>
+{{/if}}
+<p>
+	{{#each dates}}
+		<a href="#" class='events'>{{>}}</a>
+	{{else}}
+		Unfortunately, we currently only accept {{event.name}}.
+	{{/each}}
+</p>
