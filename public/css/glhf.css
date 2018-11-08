@@ -45,7 +45,7 @@ div {
 	grid-row-start: 1;
 	grid-row-end: 2;		
 }
-.nav a, .loginLink {
+.nav a.menu, .loginLink {
 	padding: 10px;
 	background-color:  #333333;
 	color:  #ffffff;
@@ -57,7 +57,7 @@ div {
 	border-right:  1px white solid;	
 	opacity:  0.5;
 }
-.nav a {
+.nav a.menu {
 	width:  100px;
 }
 .footer {
