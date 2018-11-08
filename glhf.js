@@ -19,11 +19,11 @@ app.get('/about',function(req, res){
 
 app.get('/events', function(req, res) {
 	res.render('events');
-}
+});
 
 app.get('/gallery', function(req, res) {
 	res.render('gallery');
-}
+});
 
 app.get('/events',function(req,res){
 	res.render('events',{
