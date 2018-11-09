@@ -96,5 +96,24 @@ div {
 }
 input {
 	display:  block;
+	padding-block:  5px;
+}
+input[type~="text"], input[type~="password"] {
+	display:  block;
 	padding-bottom:  5px;
+	font-family:  Segoe UI, Arial, Helvetica, sans;
+	font-size:  1.5em;
+	padding: 5px;
+	border:  2px #00ff00 solid;
+	border-radius:  5px;
+	background-color:  #999999;
+	margin-bottom:  5px;
+}
+input[type~="submit"] {
+	font-family:  Segoe UI, Arial, Helvetica, sans;
+	font-size:  1.5em;
+	padding:  5px;
+	border:  2px #00ff00 solid;
+	margin-left:  auto;
+	margin-right: auto;
 }
