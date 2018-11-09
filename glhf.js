@@ -23,19 +23,18 @@ app.get('/gallery', function(req, res) {
 
 app.get('/events',function(req,res){
 	res.render('events',{
-		currency:{
-			name: 'Good Luck Have Fun  Events',
-			abbrev: 'GLHF',
-},
-		tours:[
-			{name: 'NHL event', price: 'Nov 15' },
-			{name: 'Pioneer Ambassador Game Night', price: 'Nov 27' },
-			{name: 'Mario Kart Tournmanet', price: 'Nov 30' },
-],
-specialsUrl: '/november-events',
-currencies: [ '15', '27', '30'],
-
-});
+		currency: {
+				name: 'Good Luck Have fun Events',
+				abbrev: 'GLHF',
+	},
+	tours:[
+		{ name: 'NHL event', price: 'Nov 15' },
+		{ name: 'Pioneer Ambassor Game Night', price: 'Nov 27' },
+		{ name: 'Mario Kart Tournament', price: 'Nov 30' }
+	],
+specialsUrl: '/november-dates',
+currencies: [ '15', '27', '30' ],
+}
 
 });
 
