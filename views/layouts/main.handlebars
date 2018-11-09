@@ -21,13 +21,14 @@
 <body>
 
 <div class="view">
-	
+	<div class="logo">
+		<a href="/"><img src="/img/glhf-logo-150.png" /></a>
+	</div>
 	<div class="header">
 		<h1>GLHF</h1>
 	</div>
 
 	<div class="nav">
-		<a href="/"><img src='/img/glhf-logo-150.png'></a>
 		<a class="menu" href="/about">About</a>
 		<a class="menu" href="/events">Events</a>
 		<a class="menu" href="/gallery">Gallery</a>
@@ -43,12 +44,11 @@
 	</div>
 	
 	<div class="loginLink">
-		<h3><a onclick="showLogin()">Login</a></h3>
+		<a class="menu" onclick="showLogin()">Login</a>
 	</div>
 	
 	<div class="login">
-		<form class="loginForm" role="form"
-				action="/process?form=login' method="POST">
+		<form class="loginForm" role="form" action="/process?form=login' method="POST">
 			<input type="text">username</input>
 			<input type="password">Password</input>
 			<input type="submit" />

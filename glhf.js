@@ -39,10 +39,7 @@ currencies: [ '15', '27', '30'],
 
 });
 
-app.get('/gallery',function(req,res){
-	res.render('gallery');
-
-});
+// adda  counter here!
 
 // Static pages - Anything we need delivered literally.
 
