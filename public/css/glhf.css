@@ -38,6 +38,7 @@ div {
 	grid-column-end:  4;
 	grid-row-start: 3;
 	grid-row-end: 4;
+	min-height:  500px;
 }
 .nav {
 	grid-column-start:  2;
@@ -56,6 +57,7 @@ div {
 	border-top: 1px white solid;
 	border-right:  1px white solid;	
 	opacity:  0.5;
+	cursor: pointer;
 }
 .nav a.menu {
 	width:  100px;
@@ -72,6 +74,7 @@ div {
 	grid-column-end:  4;
 	grid-row-start: 1;
 	grid-row-end:  2;
+	height:  40%;
 }
 .login {
 	grid-column-start: 3;
@@ -81,6 +84,15 @@ div {
 	display: none;
 	justify-self: end;
 	background-color: black;
+}
+.logo {
+	grid-column-start: 1;
+	grid-column-end: 2;
+	grid-row-start: 1;
+	grid-row-end: 2;
+}
+.nav a:first-child  {
+	margin-left:  25px;
 }
 input {
 	display:  block;
