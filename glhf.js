@@ -34,7 +34,7 @@ app.get('/events',function(req,res){
 	],
 specialsUrl: '/november-dates',
 currencies: [ '15', '27', '30' ],
-}
+});
 
 });
 
