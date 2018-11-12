@@ -1,28 +1,30 @@
 <p> GLHF Events</p><br>
 
 <ul>
-		{{#each names}}
-			{{! I'm in a new block..and the context has changed }}
+	{{#each tours}}
+		{{! I'm in a new block...and the context has changed }}
 		<li>
-			{{name - {{date}}
-			{{if../events}}
-				({{../..//events.abrev}})
+			{{name}} - {{price}}
+			{{if ../currencies}}
+				({{../../currency.abbrev}})
 			{{/if}}
 		</li>
 	{{/each}}
 </ul>
-{{#unless dates}}
-	<p>all dates in {{events.name}}
-{{/unless dates}}
+{{#unless currencies}}
+	<p>All dates in {{currency.name}}.</p>
+{{/unless}}
 {{#if specialsUrl}}
-	{{! I'm in a new block, but the context hasn't changed (sortof) }}
-	<p>Check out our <a href="{{specialsUrl}}"> dates!</p>
-	<p>please check back often for dates.</p>
+	{{! I'm in a new block..but the context hasn't changed (sortof) }}
+	<p> Check out our <a href='{{specialsUrl}}'>dates!</p>
+{{else}}
+	<p>Please check back often for specials.</p>
 {{/if}}
 <p>
-	{{#each dates}}
-		<a href="#" class='events'>{{>}}</a>
-	{{else}}
-		Unfortunately, we currently only accept {{event.name}}.
+	{{#each currencies}}
+		<a href='#' class='currency'>{{.}}</a>
 	{{/each}}
+		
+	{{else}}
+		Unfortunately, we currently only accept {{currany.name}}
 </p>
