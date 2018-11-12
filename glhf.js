@@ -10,30 +10,49 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3001);
 
 app.get('/', function(req, res) {
-	res.render('home');
+	console.log(req.query);
+	res.render('home', 
+		{ 
+			page:  "home",
+			title:  "GLHF",
+		}
+	);
 });
 
 app.get('/about',function(req, res){
-	res.render('about');
+	res.render('about',
+		{ 
+			page:  "about",
+			title:  "About",
+		}
+	);
 });
 
 app.get('/gallery', function(req, res) {
-	res.render('gallery');
+	res.render('gallery',
+		{
+			page:  "gallery",
+			title:  "Media Gallery",
+		}
+	);
 });
 
 app.get('/events',function(req,res){
 	res.render('events',{
-		currency: {
-				name: 'Good Luck Have fun Events',
-				abbrev: 'GLHF',
-	},
-	tours:[
-		{ name: 'NHL event', price: 'Nov 15' },
-		{ name: 'Pioneer Ambassor Game Night', price: 'Nov 27' },
-		{ name: 'Mario Kart Tournament', price: 'Nov 30' }
-	],
-specialsUrl: '/november-dates',
-currencies: [ '15', '27', '30' ],
+		page:  "events",
+		title:  "Upcoming Events",
+		currency:{
+			name: 'Good Luck Have Fun  Events',
+			abbrev: 'GLHF',
+},
+		tours:[
+			{name: 'NHL event', price: 'Nov 15' },
+			{name: 'Pioneer Ambassador Game Night', price: 'Nov 27' },
+			{name: 'Mario Kart Tournmanet', price: 'Nov 30' },
+],
+specialsUrl: '/november-events',
+currencies: [ '15', '27', '30'],
+
 });
 
 });
@@ -44,11 +63,17 @@ currencies: [ '15', '27', '30' ],
 
 app.use(express.static(__dirname + '/public'));
 
+var loginCounter = 0;
+
 app.post('/process', function(req, res){
 	if(req.xhr || req.accepts('json,html')==='json'){
 		res.send({ success: true });
+		loginCounter += 1;
 	}
 });
+
+// If logged in, show the login count and a logout button instead of a login form. 
+
 //404 page
 app.use(function(req, res){
 	res.type('text/plain');
