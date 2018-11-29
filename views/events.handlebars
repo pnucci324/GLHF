@@ -1,30 +1,4 @@
 <p> GLHF Events</p><br>
 
-<cd ul>
-        {{#each tours}}
-                {{! I'm in a new block...and the context has changed }}
-                <li>
-                        {{name}} - {{price}}
-                        ({{#if ../currencies.abbrev}})
-                {{/if}}
-        </li>
-{{/each}}
-</ul>
-{{#unless currencies}}
-        <p>All prices in {{currency.name}}. </p>
-{{/unless currencies}}
-{{#if specialsUrl}}
-        {{! I'm in a new block...buck the context hasn't changed (sortof) }}
-        <p>Check out our <a href='{{specialsUrl}}'>specials!</p>
-{{else}}
-        <p>Please check back often for specials.</p>
-{{/if}}
-<p>
-        {{#each currencies}}
-                a href = '#' class='currency'>{{.}}</a>
-        {{else}}
-                Unformtunately, we currently only accept {{currency.name}}.
-        {{/each}}
-</p>
 
-
+<iframe src="https://calendar.google.com/calendar/embed?src=82jmja2m9rsgh2745affg9pjss%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
