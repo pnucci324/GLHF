@@ -5,4 +5,4 @@ module.exports = {
 		password: "esports",
 		database: "esports"
 	}
-});
+};

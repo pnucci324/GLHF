@@ -2,10 +2,10 @@ var express = require('express');
 
 var app = express();
 
-var http = require("http:);
-var fs = require("fs);
-var mysql = reqire("mysql"):
-var credentials = requrire("./credentials"):
+var http = require("http");
+var fs = require("fs");
+var mysql = require("mysql");
+var credentials = require("./credentials");
 var qs = require("querystring");
 
 http.createServer(function(req, res) {
