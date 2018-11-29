@@ -1,7 +1,7 @@
 module.exports = {
 	connection:{
 		host: "db.it.pointpark.edu",
-		user: "pnucci",
+		user: "esports",
 		password: "esports",
 		database: "esports"
 	}
