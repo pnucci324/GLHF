@@ -8,72 +8,6 @@ var mysql = require("mysql");
 var credentials = require("./credentials");
 var qs = require("querystring");
 
-http.createServer(function(req, res) {
-  try {
-    var path = req.url.replace(/\/?(?:\?.*)?$/, "").toLowerCase();
-    if (path === "/users") {
-      users(req, res);
-    }
-    else if (path === "/add_user") {
-      addUser(req, res);
-    }
-    else {
-      serveStaticFile(res, path);
-    }
-  }
-  catch (e) {
-    try {
-      console.log("ERROR(500): " + e);
-      res.writeHead(500, {"Content-Type": "text/plain; charset=utf-8"});
-      res.end("500 Internal Server error");
-    }
-    catch (e) {
-      console.log("ERROR(^^^): " + e);
-    }
-  }
-}).listen(3000);
-
-function serveStaticFile(res, path, contentType, responseCode) {
-  if (!path) path = "/index.html";
-  if (!responseCode) responseCode = 200;
-  if (!contentType) {
-    contentType = "application/octet-stream";
-    if (path.endsWith(".html")) {
-      contentType = "text/html; charset=utf-8";
-    }
-    else if (path.endsWith(".js")) {
-      contentType = "application/javascript; charset=utf-8";
-    }
-    else if (path.endsWith(".json")) {
-      contentType = "application/json; charset=utf-8";
-    }
-    else if (path.endsWith(".css")) {
-      contentType = "text/css; charset=utf-8";
-    }
-    else if (path.endsWith(".png")) {
-      contentType = "image/png";
-    }
-    else if (path.endsWith(".jpg")) {
-      contentType = "text/jpeg";
-    }
-  }
-  fs.readFile(__dirname + "/public" + path, function(err, data) {
-    if (err) {
-      res.writeHead(404, {"Content-Type": "text/plain; charset=utf-8"});
-      res.end("404 Not Found");
-    }
-    else {
-      res.writeHead(200, {"Content-Type": contentType});
-      res.end(data);
-    }
-  });
-}
-
-function sendResponse(req, res, data) {
-  res.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
-  res.end(JSON.stringify(data));
-}
-
 function users(req, res) {
   var conn = mysql.createConnection(credentials.connection);
   // connect to database
@@ -145,8 +79,29 @@ function addUser(req, res) {
   });
 }
 
-console.log("Server started on localhost: 3000; press Ctrl-C to terminate....");
-
+function verifyUser (loginId, password) {
+	// Connect to the database.
+	var conn = mysql.createConnection(credentials.connection);
+	conn.connect(function(err) {
+		if (err) {
+			console.error("Error reaching MySQL: ", credentials.connection);
+			return false;
+		}
+		conn.query("SELECT loginId FROM esports.USERS", function(err, rows, fields) {
+			// Build JSON results as an object.
+			var outjson = {};
+			if (err) { // This denotes failure.
+				outjson.success = false;
+				outjson.message = "Query failed: " + err;
+			} else {   // This denotes success.
+				outjson.success = true;
+				outjson.message = "Query successful.";
+				outjson.data = rows;
+			}
+			// Return json object containing list of users.
+		});
+	});
+}
 
 //handlebars view engine
 var handlebars = require('express3-handlebars').create({ defaultLayout: 'main' });
@@ -215,6 +170,13 @@ app.post('/process', function(req, res){
 	if(req.xhr || req.accepts('json,html')==='json'){
 		res.send({ success: true });
 		loginCounter += 1;
+		// update session
+		// create entire user object here
+		// req.session.user
+		// req.body.name
+		// req.body.email
+		// req.body.pasword
+		// next();
 	}
 });
 
