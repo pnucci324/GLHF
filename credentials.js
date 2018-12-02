@@ -6,3 +6,7 @@ module.exports = {
 		database: "esports"
 	}
 };
+
+module.exports = {
+	cookieSecret: 'This is all the stuff for the GLHF members',
+};

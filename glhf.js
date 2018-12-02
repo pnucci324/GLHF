@@ -1,5 +1,9 @@
 var express = require('express');
 
+app.use(require('cookies-parser')credentials.cookieSecret));
+
+app.use(requrie('express-session')());
+
 var app = express();
 
 var http = require("http");
@@ -152,13 +156,13 @@ app.get('/events',function(req,res){
 			{name: 'Mario Kart Tournmanet', price: 'Nov 30' },
 ],
 specialsUrl: '/november-events',
-currencies: [ '15', '27', '30'],
+currencies: ['GLFH', 'RUGBY', 'Esports class'],
 
 });
 
 });
 
-// adda  counter here!
+// add a  counter here!
 
 // Static pages - Anything we need delivered literally.
 
