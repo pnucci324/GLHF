@@ -10,7 +10,7 @@ var mysql = require("mysql");
 var credentials = require("./credentials");
 var qs = require("querystring");
 
-
+//cookies
 app.use(require('cookie-parser')(credentials.cookieSecret));
 
 function users(req, res) {
