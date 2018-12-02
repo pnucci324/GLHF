@@ -1,8 +1,6 @@
 var express = require('express');
 
-app.use(require('cookies-parser')credentials.cookieSecret));
 
-app.use(requrie('express-session')());
 
 var app = express();
 
@@ -11,6 +9,9 @@ var fs = require("fs");
 var mysql = require("mysql");
 var credentials = require("./credentials");
 var qs = require("querystring");
+
+//cookies
+app.use(require('cookie-parser')(credentials.cookieSecret));
 
 function users(req, res) {
   var conn = mysql.createConnection(credentials.connection);
@@ -185,6 +186,7 @@ app.post('/process', function(req, res){
 });
 
 // If logged in, show the login count and a logout button instead of a login form. 
+
 
 //404 page
 app.use(function(req, res){
