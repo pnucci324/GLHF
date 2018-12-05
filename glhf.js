@@ -10,8 +10,6 @@ var mysql = require("mysql");
 var credentials = require("./credentials");
 var qs = require("querystring");
 
-//cookies
-app.use(require('cookie-parser')(credentials.cookieSecret));
 
 function users(req, res) {
   var conn = mysql.createConnection(credentials.connection);
@@ -175,6 +173,17 @@ app.post('/process', function(req, res){
 	if(req.xhr || req.accepts('json,html')==='json'){
 		res.send({ success: true });
 		loginCounter += 1;
+		req.session.user = {
+			email: req.body.email,
+			name: req.body.name,
+			password: req.body.email 
+		};
+		console.log(req.session.user);
+		//use(middleware)
+		res.locals.user = req.session.user;
+		//handlebars
+		user.email;
+		user.password;
 		// update session
 		// create entire user object here
 		// req.session.user
