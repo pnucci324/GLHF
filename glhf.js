@@ -155,7 +155,7 @@ app.get('/events',function(req,res){
 			{name: 'Mario Kart Tournmanet', price: 'Nov 30' },
 ],
 specialsUrl: '/november-events',
-currencies: ['GLFH', 'RUGBY', 'Esports class'],
+currencies: ['GLFH', 'RUGBY', 'PPU'],
 
 });
 
@@ -174,17 +174,16 @@ app.post('/process', function(req, res){
 		res.send({ success: true });
 		loginCounter += 1;
 		req.session.user = {
-			//email: req.body.email,
-			username:"req.body.username",
-			password: "req.body.password"
+			username: 'req.body.username',
+			password: 'req.body.password'
 		};
 		console.log(req.session.user);
-		//use(middleware)
+	
+		res.local.user = req.session.user;
 
-		res.locals.user = req.session.user;
-		//handlebars
-		//user.username;
-		//user.password;
+		user.username;
+		user.password;
+
 		// update session
 		// create entire user object here
 		// req.session.user
