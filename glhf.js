@@ -174,23 +174,24 @@ app.post('/process', function(req, res){
 		res.send({ success: true });
 		loginCounter += 1;
 		req.session.user = {
-			email: req.body.email,
-			name: req.body.name,
-			password: req.body.email 
+			//email: req.body.email,
+			username:"req.body.username",
+			password: "req.body.password"
 		};
 		console.log(req.session.user);
 		//use(middleware)
+
 		res.locals.user = req.session.user;
 		//handlebars
-		user.email;
-		user.password;
+		//user.username;
+		//user.password;
 		// update session
 		// create entire user object here
 		// req.session.user
 		// req.body.name
 		// req.body.email
-		// req.body.pasword
-		// next();
+		//req.body.pasword
+		//next();
 	}
 });
 
