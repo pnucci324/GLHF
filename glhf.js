@@ -159,7 +159,7 @@ app.get('/events',function(req,res){
 			{name: 'Mario Kart Tournmanet', price: 'Nov 30' },
 ],
 specialsUrl: '/november-events',
-currencies: ['GLFH', 'RUGBY', 'Esports class'],
+currencies: ['GLFH', 'RUGBY', 'PPU'],
 
 });
 
@@ -192,8 +192,8 @@ app.post('/process', function(req, res){
 		// req.session.user
 		// req.body.name
 		// req.body.email
-		// req.body.pasword
-		// next();
+		//req.body.pasword
+		//next();
 	}
 });
 
