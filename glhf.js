@@ -12,8 +12,12 @@ var qs = require("querystring");
 var session = require('express-session');
 
 app.use(require('cookie-parser')(credentials.cookieSecret));
-app.use(require('body-parser')());
-app.use(require('express-session')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({
+	resave: false,
+	saveUninitialized: false,
+	secret: credentials.cookieSecret
+}));
 
 function users(req, res) {
   var conn = mysql.createConnection(credentials.connection);
@@ -177,7 +181,7 @@ app.post('/process', function(req, res){
 	if(req.xhr || req.accepts('json,html')==='json'){
 		res.send({ success: true });
 		loginCounter += 1;
-		req.session.username = {
+		req.session.user = {
 		//	email: req.body.email,
 			username: req.body.username,
 			password: req.body.password, 
