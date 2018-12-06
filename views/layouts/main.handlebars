@@ -48,36 +48,38 @@
 	</div>
 	
 	<div class="login">
-		<form class="loginForm" role="form" action="/process?form=login" method="POST">
-			<input type="text" placeholder="Username"></input>
-			<input type="password" placeholder="Password"></input>
+		<form id="login" class="loginForm" role="form" method="POST">
+			<input type="text" placeholder="Username" name="username"></input>
+			<input type="password" placeholder="Password" name="password"></input>
 			<input type="submit" />
 		</form>
 	</div>
 	<script>
 		$(document).ready(function(){
-			$('.loginForm').on('submit', function(evt){
+			$('#login').on('submit', function(evt){
 				evt.preventDefault();
 				var action = $(this).attr('action');
 				var $container = $(this).closest('.formContainer');
 				$.ajax({
-					url: action,
+					url: '/process',
 					type: 'POST',
 					data: $(this).serialize(),
-					success: function(){
-					alert('Success')
-					if(alert.success){
-                                                $container.html('<h2>Thank you!</h2>' + data.message);                                                                                          
-                                        }else{
-                                                $container.html('There was a Problem.');
-                                        }
-                                },
-                        error: function(){
-                                alert('There was a problem');
-                                }
-                        });
-                });
-        });
+					success: function(data) {
+						if (data.success) {
+							$container.html('<h2>Thank you!</h2>');
+							console.log('Marginal success.');
+							console.log(data);
+						} else {
+							$container.html('There was a problem.');
+							console.log('Total failure.');
+						}
+                                	},
+					error: function(){
+						alert('There was a problem');
+					}
+				});
+			});
+		});
 
 	</script>
 
