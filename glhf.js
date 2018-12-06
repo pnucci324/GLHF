@@ -20,85 +20,85 @@ app.use(require('express-session')({
 }));
 
 function users(req, res) {
-  var conn = mysql.createConnection(credentials.connection);
-  // connect to database
-  conn.connect(function(err) {
-    if (err) {
-      console.error("ERROR: cannot connect: " + e);
-      return;
-    }
-    // query the database
-    conn.query("SELECT * FROM USERS", function(err, rows, fields) {
-      // build json result object
-      var outjson = {};
-      if (err) {
-        // query failed
-        outjson.success = false;
-        outjson.message = "Query failed: " + err;
-      }
-      else {
-        // query successful
-        outjson.success = true;
-        outjson.message = "Query successful!";
-        outjson.data = rows;
-      }
-      // return json object that contains the result of the query
-      sendResponse(req, res, outjson);
-    });
-    conn.end();
-  });
+	var conn = mysql.createConnection(credentials.connection);
+	// connect to database
+	conn.connect(function (err) {
+		if (err) {
+			console.error("ERROR: cannot connect: " + e);
+			return;
+		}
+		// query the database
+		conn.query("SELECT * FROM USERS", function (err, rows, fields) {
+			// build json result object
+			var outjson = {};
+			if (err) {
+				// query failed
+				outjson.success = false;
+				outjson.message = "Query failed: " + err;
+			}
+			else {
+				// query successful
+				outjson.success = true;
+				outjson.message = "Query successful!";
+				outjson.data = rows;
+			}
+			// return json object that contains the result of the query
+			sendResponse(req, res, outjson);
+		});
+		conn.end();
+	});
 }
 
 function addUser(req, res) {
-  var body = "";
-  req.on("data", function (data) {
-    body += data;
-    // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
-    if (body.length > 1e6) {
-      // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
-      req.connection.destroy();
-    }
-  });
-  req.on("end", function () {
-    var injson = JSON.parse(body);
-    var conn = mysql.createConnection(credentials.connection);
-    // connect to database
-    conn.connect(function(err) {
-      if (err) {
-        console.error("ERROR: cannot connect: " + e);
-        return;
-      }
-      // query the database
-      conn.query("INSERT INTO USERS (NAME) VALUE (?)", [injson.name], function(err, rows, fields) {
-        // build json result object
-        var outjson = {};
-        if (err) {
-          // query failed
-          outjson.success = false;
-          outjson.message = "Query failed: " + err;
-        }
-        else {
-          // query successful
-          outjson.success = true;
-          outjson.message = "Query successful!";
-        }
-        // return json object that contains the result of the query
-        sendResponse(req, res, outjson);
-      });
-      conn.end();
-    });
-  });
+	var body = "";
+	req.on("data", function (data) {
+		body += data;
+		// 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
+		if (body.length > 1e6) {
+			// FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
+			req.connection.destroy();
+		}
+	});
+	req.on("end", function () {
+		var injson = JSON.parse(body);
+		var conn = mysql.createConnection(credentials.connection);
+		// connect to database
+		conn.connect(function (err) {
+			if (err) {
+				console.error("ERROR: cannot connect: " + e);
+				return;
+			}
+			// query the database
+			conn.query("INSERT INTO USERS (NAME) VALUE (?)", [injson.name], function (err, rows, fields) {
+				// build json result object
+				var outjson = {};
+				if (err) {
+					// query failed
+					outjson.success = false;
+					outjson.message = "Query failed: " + err;
+				}
+				else {
+					// query successful
+					outjson.success = true;
+					outjson.message = "Query successful!";
+				}
+				// return json object that contains the result of the query
+				sendResponse(req, res, outjson);
+			});
+			conn.end();
+		});
+	});
 }
 
-function verifyUser (loginId, password) {
+function verifyUser(loginId, password) {
 	// Connect to the database.
 	var conn = mysql.createConnection(credentials.connection);
-	conn.connect(function(err) {
+	conn.connect(function (err) {
 		if (err) {
 			console.error("Error reaching MySQL: ", credentials.connection);
 			return false;
 		}
-		conn.query("SELECT loginId FROM esports.USERS", function(err, rows, fields) {
+		conn.query("SELECT loginId FROM esports.USERS", function (err, rows, fields) {
 			// Build JSON results as an object.
 			var outjson = {};
 			if (err) { // This denotes failure.
@@ -121,52 +121,72 @@ app.set('view engine', 'handlebars');
 
 app.set('port', process.env.PORT || 3001);
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	console.log(req.query);
-	res.render('home', 
-		{ 
-			page:  "home",
-			title:  "GLHF",
+	res.render('home',
+		{
+			page: "home",
+			title: "GLHF",
 		}
 	);
 });
 
-app.get('/about',function(req, res){
+app.get('/about', function (req, res) {
 	res.render('about',
-		{ 
-			page:  "about",
-			title:  "About",
+		{
+			page: "about",
+			title: "About",
 		}
 	);
 });
 
-app.get('/gallery', function(req, res) {
+app.get('/gallery', function (req, res) {
 	res.render('gallery',
 		{
-			page:  "gallery",
-			title:  "Media Gallery",
+			page: "gallery",
+			title: "Media Gallery",
 		}
 	);
 });
 
-app.get('/events',function(req,res){
-	res.render('events',{
-		page:  "events",
-		title:  "Upcoming Events",
-		currency:{
+app.get('/events', function (req, res) {
+	res.render('events', {
+		page: "events",
+		title: "Upcoming Events",
+		currency: {
 			name: 'Good Luck Have Fun  Events',
 			abbrev: 'GLHF',
-},
-		tours:[
-			{name: 'NHL event', price: 'Nov 15' },
-			{name: 'Pioneer Ambassador Game Night', price: 'Nov 27' },
-			{name: 'Mario Kart Tournmanet', price: 'Nov 30' },
-],
-specialsUrl: '/november-events',
-currencies: ['GLFH', 'RUGBY', 'PPU'],
+		},
+		tours: [
+			{ name: 'NHL event', price: 'Nov 15' },
+			{ name: 'Pioneer Ambassador Game Night', price: 'Nov 27' },
+			{ name: 'Mario Kart Tournmanet', price: 'Nov 30' },
+		],
+		specialsUrl: '/november-events',
+		currencies: ['GLFH', 'RUGBY', 'Esports class'],
+
+	});
 
 });
 
+app.get("/games", function (req, res) {
+	res.render("games");
+});
+
+app.get('/send_data', function (req, res) {
+fs.readFile(__dirname + '/public/glhf.json', 'utf8', (err, fileContents) => {
+	if (err) {
+		console.error(err)
+		return
+	}
+	try {
+		data = JSON.parse(fileContents)
+	} catch (err) {
+		console.error(err)
+	}
+	console.log(data);
+		res.send(data);
+	});
 });
 
 // add a  counter here!
@@ -177,8 +197,8 @@ app.use(express.static(__dirname + '/public'));
 
 var loginCounter = 0;
 
-app.post('/process', function(req, res){
-	if(req.xhr || req.accepts('json,html')==='json'){
+app.post('/process', function (req, res) {
+	if (req.xhr || req.accepts('json,html') === 'json') {
 		res.send({ success: true });
 		loginCounter += 1;
 		req.session.user = {
@@ -203,23 +223,22 @@ app.post('/process', function(req, res){
 
 // If logged in, show the login count and a logout button instead of a login form. 
 
-
 //404 page
-app.use(function(req, res){
+app.use(function (req, res) {
 	res.type('text/plain');
 	res.status(404);
 	res.send('404 - Not Found');
 });
 
 //500 page
-app.use(function(err, req, res, next){
+app.use(function (err, req, res, next) {
 	console.error(err.stack);
 	res.type('text/plain');
 	res.status(500);
 	res.send('500 - Server Error');
 });
 
-app.listen(app.get('port'), function(){
+app.listen(app.get('port'), function () {
 	console.log('Express started on http://localhost: ' +
-		 app.get('port') + '; press Ctrl-C to terminate.');
+		app.get('port') + '; press Ctrl-C to terminate.');
 });

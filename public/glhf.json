@@ -1,0 +1,26 @@
+{
+  "Games": [
+    "League of Legends",
+    "Overwatch",
+    "CS GO",
+    "PUBG",
+    "DotA 2",
+    "Hearthstone"
+  ],
+  "Genre": [
+    "MOBA",
+    "FPS",
+    "FPS",
+    "FPS/TPS",
+    "MOBA",
+    "TCG"
+  ],
+  "Players": [
+    6,
+    3,
+    7,
+    5,
+    0,
+    2
+  ]
+}
