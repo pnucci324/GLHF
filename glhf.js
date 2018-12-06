@@ -9,10 +9,15 @@ var fs = require("fs");
 var mysql = require("mysql");
 var credentials = require("./credentials");
 var qs = require("querystring");
+var session = require('express-session');
 
-app.use(express.static(__dirname + '/public'));
-//cookies
 app.use(require('cookie-parser')(credentials.cookieSecret));
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({
+	resave: false,
+	saveUninitialized: false,
+	secret: credentials.cookieSecret
+}));
 
 function users(req, res) {
 	var conn = mysql.createConnection(credentials.connection);
@@ -196,13 +201,23 @@ app.post('/process', function (req, res) {
 	if (req.xhr || req.accepts('json,html') === 'json') {
 		res.send({ success: true });
 		loginCounter += 1;
+		req.session.user = {
+		//	email: req.body.email,
+			username: req.body.username,
+			password: req.body.password, 
+		};
+		console.log(req.session.user);
+		//use(middleware)
+		res.locals.user = req.session.user;
+		//handlebars
+		//      --- user.password;
 		// update session
 		// create entire user object here
 		// req.session.user
 		// req.body.name
 		// req.body.email
-		// req.body.pasword
-		// next();
+		//req.body.pasword
+		//next();
 	}
 });
 
