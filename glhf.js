@@ -173,6 +173,10 @@ app.get("/games", function (req, res) {
 	res.render("games");
 });
 
+app.get("/mariokart", function (req, res){
+	res.render("mariokart");
+});
+
 app.get('/send_data', function (req, res) {
 fs.readFile(__dirname + '/public/glhf.json', 'utf8', (err, fileContents) => {
 	if (err) {
