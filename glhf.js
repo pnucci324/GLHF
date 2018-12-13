@@ -115,6 +115,23 @@ function verifyUser(attemptCreds) {
 	});
 }
 
+function loadComments(image) {
+	var conn = mysql.createConnection(credentials.connection);
+	conn.connect(function (err) {
+		if (err) {
+			console.error("Error reaching MySQL: ", credentials.connection);
+			return false;
+		}
+		conn.query("SELECT USERS.userId, USERS.firstName, USERS.lastName, COMMENTS.linkedImage, COMMENTS.userId FROM USERS JOIN COMMENTS ON USERS.userId = COMMENTS.userId WHERE COMMENTS.linkedImage = ?", image, function (err, rows, fields) {
+			returnComments = {};
+			for (var i = 0; i < rows.length; i++) {
+				returnComments = rows[];
+			}
+			return returnComments;
+		});
+	});
+}
+
 //handlebars view engine
 var handlebars = require('express3-handlebars').create({ defaultLayout: 'main' });
 app.engine('handlebars', handlebars.engine);
