@@ -125,7 +125,7 @@ function loadComments(image) {
 		conn.query("SELECT USERS.userId, USERS.firstName, USERS.lastName, COMMENTS.linkedImage, COMMENTS.userId FROM USERS JOIN COMMENTS ON USERS.userId = COMMENTS.userId WHERE COMMENTS.linkedImage = ?", image, function (err, rows, fields) {
 			returnComments = {};
 			for (var i = 0; i < rows.length; i++) {
-				returnComments = rows[];
+				returnComments = rows[i];
 			}
 			return returnComments;
 		});
