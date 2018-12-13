@@ -84,6 +84,7 @@ div {
 	display: none;
 	justify-self: end;
 	background-color: black;
+	z-index:  2;
 }
 .logo {
 	grid-column-start: 1;
