@@ -30,10 +30,31 @@
 	</div>
 
 	<div class="nav">
+		{{#if isAbout}}
+		<a class="menu">About</a>
+		{{else}}
 		<a class="menu" href="/about">About</a>
+		{{/if}}
+		{{#if isEvents}}
+		<a class="menu">Events</a>
+		{{else}}
 		<a class="menu" href="/events">Events</a>
+		{{/if}}
+		{{#if isGallery}}
+		<a class="menu">Gallery</a>
+		{{else}}
 		<a class="menu" href="/gallery">Gallery</a>
+		{{/if}}
+		{{#if isGames}}
+		<a class="menu">Games</a>
+		{{else}}
 		<a class="menu" href="/games">Games</a>
+		{{/if}}
+		{{#if isMariokart}}
+		<a class="menu">Mario Kart</a>
+		{{else}}
+		<a class="menu" href="/mariokart">Mario Kart</a>
+		{{/if}}
 	</div>
 	
 	<div class="content">
