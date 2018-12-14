@@ -11,6 +11,13 @@ var credentials = require("./credentials");
 var qs = require("querystring");
 var session = require('express-session');
 
+//handlebars view engine
+var handlebars = require('express3-handlebars').create({ defaultLayout: 'main' });
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
+
+app.set('port', process.env.PORT || 3001);
+
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({
@@ -132,12 +139,6 @@ function loadComments(image) {
 	});
 }
 
-//handlebars view engine
-var handlebars = require('express3-handlebars').create({ defaultLayout: 'main' });
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
-
-app.set('port', process.env.PORT || 3001);
 
 app.get('/', function (req, res) {
 	console.log(req.query);
@@ -170,24 +171,14 @@ app.get('/gallery', function (req, res) {
 });
 
 app.get('/events', function (req, res) {
-	res.render('events', {
-		page: "events",
-		title: "Upcoming Events",
-		currency: {
-			name: 'Good Luck Have Fun  Events',
-			abbrev: 'GLHF',
-		},
-		tours: [
-			{ name: 'NHL event', price: 'Nov 15' },
-			{ name: 'Pioneer Ambassador Game Night', price: 'Nov 27' },
-			{ name: 'Mario Kart Tournmanet', price: 'Nov 30' },
-		],
-		specialsUrl: '/november-events',
-		currencies: ['GLFH', 'RUGBY', 'Esports class'],
-		isEvents:  true,
-
-	});
-
+	res.render('events',
+		{
+			page: "events",
+			title: "Events",
+			isEvents: true,
+		}
+	);
+			
 });
 
 app.get("/games", function (req, res) {
