@@ -26,6 +26,11 @@ app.use(require('express-session')({
 	secret: credentials.cookieSecret
 }));
 
+app.use (function(req, res, next) {
+	res.locals.user = req.session.user; 
+	next();
+});
+
 function users(req, res) {
 	var conn = mysql.createConnection(credentials.connection);
 	// connect to database
@@ -97,7 +102,7 @@ function addUser(req, res) {
 	});
 }
 
-function verifyUser(attemptCreds) {
+function verifyUser(attemptCreds, cb) {
 	// Connect to the database.
 	var conn = mysql.createConnection(credentials.connection);
 	conn.connect(function (err) {
@@ -112,11 +117,13 @@ function verifyUser(attemptCreds) {
 				console.log(rows[0].password === attemptCreds.password);
 				if (rows[0].password === attemptCreds.password) {
 					// Login success, passwords match.
-					return true;
+					cb(true);
 				} else {
 					// Login failed, passwords do not match.
-					return false;
+					cb(false);
 				}
+			} else {
+				cb(false);
 			}
 		});
 	});
@@ -225,9 +232,14 @@ app.post('/process', function (req, res) {
 			username: req.body.username,
 			password: req.body.password, 
 		};
-		res.locals.user = req.session.user;
-		// The following function returns undefined because the function takes time to run.
-		console.log("Verified user? ", verifyUser(req.session.user));
+		console.log("test");
+		verifyUser(req.session.user, function(result) {
+			if (result) {
+				console.log("Successful login!");
+			} else {
+				console.log("Unsuccessful login attempt!");
+			}
+		});
 	}
 });
 
