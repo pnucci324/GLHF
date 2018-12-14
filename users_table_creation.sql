@@ -1,5 +1,5 @@
 use esports;
-
+DROP TABLE COMMENTS;
 DROP TABLE USERS;
 
 CREATE TABLE USERS 
@@ -14,5 +14,21 @@ CREATE TABLE USERS
 );
 
 INSERT INTO USERS (firstName, lastName, loginId, password, email)
-VALUES ('Tim', 'Strickler', 'timstri', '1111', 'tim@pneity.org');
+	VALUES ('Tim', 'Strickler', 'timstri', '1111', 'tsstric@pointpark.edu');
+    
 SELECT * FROM USERS;
+
+CREATE TABLE COMMENTS
+(	commentId INT AUTO_INCREMENT,
+    userId INT,
+    commentText TEXT,
+    createdDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    linkedImage VARCHAR(50),
+    PRIMARY KEY (commentId),
+    FOREIGN KEY (userId) REFERENCES USERS(userId)
+);
+
+INSERT INTO COMMENTS (userId, commentText, linkedImage)
+	VALUES (1, 'This is  a comment!', 'img1.jpg');
+
+SELECT * FROM COMMENTS;

@@ -58,7 +58,7 @@ function addUser(req, res) {
 			// FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
 			req.connection.destroy();
 		}
-	});
+	})
 	req.on("end", function () {
 		var injson = JSON.parse(body);
 		var conn = mysql.createConnection(credentials.connection);
@@ -90,7 +90,7 @@ function addUser(req, res) {
 	});
 }
 
-function verifyUser(loginId, password) {
+function verifyUser(attemptCreds) {
 	// Connect to the database.
 	var conn = mysql.createConnection(credentials.connection);
 	conn.connect(function (err) {
@@ -98,18 +98,36 @@ function verifyUser(loginId, password) {
 			console.error("Error reaching MySQL: ", credentials.connection);
 			return false;
 		}
-		conn.query("SELECT loginId FROM esports.USERS", function (err, rows, fields) {
-			// Build JSON results as an object.
-			var outjson = {};
-			if (err) { // This denotes failure.
-				outjson.success = false;
-				outjson.message = "Query failed: " + err;
-			} else {   // This denotes success.
-				outjson.success = true;
-				outjson.message = "Query successful.";
-				outjson.data = rows;
+		conn.query("SELECT loginId, password FROM esports.USERS where loginId = (?)", attemptCreds.username, function (err, rows, fields) {
+			if (rows.length === 1) {
+				// user matched in SQL query, 1 result returned.
+				// Return true if the password matches.
+				console.log(rows[0].password === attemptCreds.password);
+				if (rows[0].password === attemptCreds.password) {
+					// Login success, passwords match.
+					return true;
+				} else {
+					// Login failed, passwords do not match.
+					return false;
+				}
 			}
-			// Return json object containing list of users.
+		});
+	});
+}
+
+function loadComments(image) {
+	var conn = mysql.createConnection(credentials.connection);
+	conn.connect(function (err) {
+		if (err) {
+			console.error("Error reaching MySQL: ", credentials.connection);
+			return false;
+		}
+		conn.query("SELECT USERS.userId, USERS.firstName, USERS.lastName, COMMENTS.linkedImage, COMMENTS.userId FROM USERS JOIN COMMENTS ON USERS.userId = COMMENTS.userId WHERE COMMENTS.linkedImage = ?", image, function (err, rows, fields) {
+			returnComments = {};
+			for (var i = 0; i < rows.length; i++) {
+				returnComments = rows[i];
+			}
+			return returnComments;
 		});
 	});
 }
@@ -136,6 +154,7 @@ app.get('/about', function (req, res) {
 		{
 			page: "about",
 			title: "About",
+			isAbout:  true,
 		}
 	);
 });
@@ -145,6 +164,7 @@ app.get('/gallery', function (req, res) {
 		{
 			page: "gallery",
 			title: "Media Gallery",
+			isGallery:  true,
 		}
 	);
 });
@@ -164,13 +184,24 @@ app.get('/events', function (req, res) {
 		],
 		specialsUrl: '/november-events',
 		currencies: ['GLFH', 'RUGBY', 'Esports class'],
+		isEvents:  true,
 
 	});
 
 });
 
 app.get("/games", function (req, res) {
-	res.render("games");
+	res.render("games", {
+		isGames:  true,
+	}
+	);
+});
+
+app.get("/mariokart", function (req, res){
+	res.render("mariokart", {
+		isMariokart:  true
+	}
+	);
 });
 
 app.get('/send_data', function (req, res) {
@@ -189,8 +220,6 @@ fs.readFile(__dirname + '/public/glhf.json', 'utf8', (err, fileContents) => {
 	});
 });
 
-// add a  counter here!
-
 // Static pages - Anything we need delivered literally.
 
 app.use(express.static(__dirname + '/public'));
@@ -202,26 +231,14 @@ app.post('/process', function (req, res) {
 		res.send({ success: true });
 		loginCounter += 1;
 		req.session.user = {
-		//	email: req.body.email,
 			username: req.body.username,
 			password: req.body.password, 
 		};
-		console.log(req.session.user);
-		//use(middleware)
 		res.locals.user = req.session.user;
-		//handlebars
-		//      --- user.password;
-		// update session
-		// create entire user object here
-		// req.session.user
-		// req.body.name
-		// req.body.email
-		//req.body.pasword
-		//next();
+		// The following function returns undefined because the function takes time to run.
+		console.log("Verified user? ", verifyUser(req.session.user));
 	}
 });
-
-// If logged in, show the login count and a logout button instead of a login form. 
 
 //404 page
 app.use(function (req, res) {
