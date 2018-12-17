@@ -1,7 +1,4 @@
 var express = require('express');
-
-
-
 var app = express();
 
 var http = require("http");
@@ -55,9 +52,9 @@ function users(req, res) {
 				outjson.data = rows;
 			}
 			// return json object that contains the result of the query
+			conn.end();
 			sendResponse(req, res, outjson);
 		});
-		conn.end();
 	});
 }
 
@@ -148,7 +145,6 @@ function loadComments(image) {
 
 
 app.get('/', function (req, res) {
-	console.log(req.query);
 	res.render('home',
 		{
 			page: "home",
@@ -213,7 +209,6 @@ fs.readFile(__dirname + '/public/glhf.json', 'utf8', (err, fileContents) => {
 	} catch (err) {
 		console.error(err)
 	}
-	console.log(data);
 		res.send(data);
 	});
 });
